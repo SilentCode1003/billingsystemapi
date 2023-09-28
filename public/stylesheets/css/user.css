@@ -1,0 +1,17 @@
+.user-contentborder{
+    border:#6d2c2c;
+    border-style: groove;
+    border-width: 1px;
+    border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: auto;
+        margin: auto;
+        padding: 10px;
+}
+.user-cardheader{
+    background-color: #f13535;
+    color: aliceblue;
+}
+.user-table{
+    width: 100% ;
+}

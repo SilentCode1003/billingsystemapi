@@ -1,0 +1,89 @@
+ <h1 class="invoice-cardheader">Invoice</h1>
+ <div class="invoice-container">
+ 
+
+    <div class="form-row" id="invoice-content">
+      
+      
+      <div class="form-group col-md-3">
+        <label for="productPrice" class="form-label">Customer ID</label>
+        <input type="number" class="form-control" id="customer_id" name="customer_id" placeholder="Customer ID" >
+      </div>
+      <div class="form-group col-md-2">
+        <label for="email">Invoice Date</label>
+        <input type="date" class="form-control" id="invoice_date" name="invoice_date" >
+      </div>
+      <div class="form-group col-md-2">
+        <label for="productQuantity" class="form-label">Due Date</label>
+        <input type="date" class="form-control" id="due_date"  name="due_date" >
+      </div>
+      <div class="form-group col-md-2">
+        <label for="tax" class="form-label">Total Amount </label>
+        <input type="number" class="form-control" id="total_amount" nam>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="discount" class="form-label">Status</label>
+        <input type="text" class="form-control" id="invoice_status" placeholder="Status">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="first-name">Payment Date</label>
+        <input type="date" class="form-control" id="payment_date">
+      </div>
+    </div>  
+      <div class="form-column">
+        <button type="submit" id="add" >Add <i class='bx bx-message-square-add'></i></button>
+      </div>
+  
+</div>
+<br>
+<div class="invoice-container table-responsive">
+ 
+  <!-- <table id="invoice-table" class="table table-hover table-bordered mt-6">
+      
+    <tr class="">
+      <th scope="col-md-4">Invoice ID</th>
+      <th scope="col-md-4">Customer Id</th>
+      <th scope="col-md-4">Invoice Date</th>
+      <th scope="col-md-4">Due Date</th>
+      <th scope="col-md-4">Total Amount</th>
+      <th scope="col-md-4">Status</th>
+      <th scope="col-md-4">Payment Date</th>
+      <th><button class="btn btn-primary btn-sm">View</button></th>
+    </tr>
+  
+    <tr class="">
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td></td>
+      <td>
+        <button class="btn btn-danger btn-sm">Delete</button>
+      </td>
+   
+    </tr>
+    
+  
+</table> -->
+
+<table id="invoice-table1" class="table table-bordered " >
+  <thead class="">
+    <th scope="col-md-4">Invoice ID</th>
+    <th scope="col-md-4">Customer Id</th>
+    <th scope="col-md-4">Invoice Date</th>
+    <th scope="col-md-4">Due Date</th>
+    <th scope="col-md-4">Total Amount</th>
+    <th scope="col-md-4">Status</th>
+    <th scope="col-md-4">Payment Date</th>
+    <th>Action</th>
+
+  </thead>
+  <tbody>
+
+  </tbody>
+
+</table>
+
+</div>

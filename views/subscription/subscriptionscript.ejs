@@ -1,0 +1,107 @@
+<script>
+    $(document).ready(function () {
+   LoadTable(); 
+  
+      function LoadTable() {
+        $("#subscription-table").DataTable({
+          destroy: true,
+          processing: true,
+          serverSide: true,
+          paging: false,
+          searching: false,
+          info: false,
+          scrollY: 400,
+          scrollCollapse: true,
+          serverMethod: "GET",
+          ajax: {
+            url: "/subscription/load",
+            dataSrc: (json) => {
+              var finalData = [];
+              var data = json.data;
+  
+              console.log(data);
+              $.each(data, (key, item) => {
+                var action = "";
+                var status = item.status;
+  
+                action = `<button class="">Delete</button>`;
+  
+                finalData.push({
+                    subscriptionid: item.subscriptionid,
+                    customerid: item.customerid,
+                    productid: item.productid,
+                    startdate: item.startdate,
+                    enddate: item.enddate,
+                    status: item.status,
+                    recurringamount: item.recurringamount,
+                    billinginterval: item.billinginterval,
+                    trialstartdate: item.trialstartdate,
+                    trialenddate: item.trialenddate,
+                    action: action
+                  
+                });
+              });
+  
+              return finalData;
+            },
+          },
+          columnDefs: [
+            {
+              targets: 1,
+              className: "td-indent",
+            },
+          ],
+          columns: [
+            { data: "subscriptionid" },
+            { data: "customerid" },
+            { data: "productid" },
+            { data: "startdate" },
+            { data: "enddate" },
+            { data: "status" },
+            { data: "recurringamount" },
+            { data: "billinginterval" },
+            { data: "trialstartdate" },
+            { data: "trialenddate" },
+            { data: "action" },
+          ],
+          initComplete: function () {},
+        });
+      }
+      $(document).on("click", "#add", function () {
+      console.log("click");
+      var customerid = $("#customerid").val();
+      var productid = $("#productid").val();
+      var startdate = $("#startdate").val();
+      var enddate = $("#enddate").val();
+      var status = $("#status").val();
+      var recurringamount = $("#recurringamount").val();
+      var billinginterval = $("#billinginterval").val();
+      var trialstartdate = $("#trialstartdate").val();
+      var trialenddate = $("#trialenddate").val();
+      
+
+      $.ajax({
+        type: "post",
+        url: "/subscription/save",
+        data: {
+          customerid: customerid,
+          productid: productid,
+          startdate: startdate,
+          enddate: enddate,
+          status: status,
+          recurringamount: recurringamount,
+          billinginterval: billinginterval,
+          trialstartdate: trialstartdate,
+          trialenddate: trialenddate,
+        },
+        success: function (result) {
+          LoadTable();
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+    });
+  });
+</script>

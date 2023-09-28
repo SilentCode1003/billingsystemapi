@@ -1,0 +1,100 @@
+<script>
+  $(document).ready(function () {
+    LoadTable();
+
+    function LoadTable() {
+      $("#user-table").DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        paging: false,
+        searching: false,
+        info: false,
+        scrollY: 400,
+        scrollCollapse: true,
+        serverMethod: "GET",
+        ajax: {
+          url: "/user/load",
+          dataSrc: (json) => {
+            var finalData = [];
+            var data = json.data;
+
+            console.log(data);
+            $.each(data, (key, item) => {
+              var action = "";
+              var status = item.status;
+
+              action = `<button class="">Delete</button>`;
+
+              finalData.push({
+                userid: item.userid,
+                username: item.username,
+                email: item.email,
+                passwordhash: item.passwordhash,
+                fullname: item.fullname,
+                registrationdate: item.registrationdate,
+                lastlogin: item.lastlogin,
+                isactive: item.isactive,
+                isadmin: item.isadmin,
+                action: action,
+              });
+            });
+
+            return finalData;
+          },
+        },
+        columnDefs: [
+          {
+            targets: 1,
+            className: "td-indent",
+          },
+        ],
+        columns: [
+          { data: "userid" },
+          { data: "username" },
+          { data: "email" },
+          { data: "passwordhash" },
+          { data: "fullname" },
+          { data: "registrationdate" },
+          { data: "lastlogin" },
+          { data: "isactive" },
+          { data: "isadmin" },
+          { data: "action" },
+        ],
+        initComplete: function () {},
+      });
+    }
+
+    $(document).on("click", "#add", function () {
+      console.log("click");
+      var username = $("#username").val();
+      var email = $("#email").val();
+      var password = $("#password").val();
+      var fullname = $("#fullname").val();
+      var isactive = $("#active").val();
+      var isadmin = $("#admin").val() == "on" ? 1 : 0;
+
+      console.log(isactive);
+
+      $.ajax({
+        type: "post",
+        url: "/user/save",
+        data: {
+          username: username,
+          email: email,
+          passwordhash: password,
+          fullname: fullname,
+          isactive: isactive,
+          isadmin: isadmin,
+        },
+        success: function (result) {
+          LoadTable();
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+    });
+  });
+</script>

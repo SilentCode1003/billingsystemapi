@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include("header.ejs")%>
+  </head>
+  <body>
+    <!-- Sidebar Container -->
+
+    <%-include("sidebar.ejs")%>
+
+    <!--End Of Sidebar-->
+
+    <!-- Top Bar -->
+    <!--Navigation / Top Bar Container-->
+    <!-- Navigation Bar -->
+    <%-include("topbar.ejs")%>
+
+    <!--End of Top Bar-->
+
+    <!--Content Container-->
+    <div class="content">
+      <%-include("./product/product.ejs")%></div>
+
+    <!--End of Content Container-->
+
+    <!-- SCRIPT CONTAINER -->
+    <!-- Include Bootstrap JS and Popper.js -->
+    <%-include("script.ejs")%> 
+    <%-include("./product/productscript.ejs")%>
+  </body>
+</html>

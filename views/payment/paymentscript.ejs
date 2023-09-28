@@ -1,0 +1,93 @@
+<script>
+  $(document).ready(function () {
+    LoadTable();
+
+    function LoadTable() {
+      $("#payment-table").DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        paging: false,
+        searching: false,
+        info: false,
+        scrollY: 400,
+        scrollCollapse: true,
+        serverMethod: "GET",
+        ajax: {
+          url: "/payment/load",
+          dataSrc: (json) => {
+            var finalData = [];
+            var data = json.data;
+
+            console.log(data);
+            $.each(data, (key, item) => {
+              var action = "";
+              var status = item.status;
+
+              action = `<button class="">Delete</button>`;
+
+              finalData.push({
+                paymentid: item.paymentid,
+                invoiceid: item.invoiceid,
+                customerid: item.customerid,
+                paymentdate: item.paymentdate,
+                paymentamount: item.paymentamount,
+                paymentmethod: item.paymentmethod,
+                transactionid: item.transactionid,
+                action: action,
+              });
+            });
+
+            return finalData;
+          },
+        },
+        columnDefs: [
+          {
+            targets: 1,
+            className: "td-indent",
+          },
+        ],
+        columns: [
+          { data: "paymentid" },
+          { data: "invoiceid" },
+          { data: "customerid" },
+          { data: "paymentdate" },
+          { data: "paymentamount" },
+          { data: "paymentmethod" },
+          { data: "transactionid" },
+          { data: "action" },
+        ],
+        initComplete: function () {},
+      });
+    }
+    $(document).on("click", "#add", function () {
+      console.log("click");
+      var invoiceid = $("#invoiceid").val();
+      var paymentdate = $("#paymentdate").val();
+      var paymentamount = $("#paymentamount").val();
+      var paymentmethod = $("#paymentmethod").val();
+      var transactionid = $("#transactionid").val();
+      
+
+      $.ajax({
+        type: "post",
+        url: "/payment/save",
+        data: {
+          invoiceid: invoiceid,
+          paymentdate: paymentdate,
+          paymentamount: paymentamount,
+          paymentmethod: paymentmethod,
+          transactionid: transactionid,
+          
+        },
+        success: function (result) {
+          LoadTable();
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+    });
+  });
+</script>
