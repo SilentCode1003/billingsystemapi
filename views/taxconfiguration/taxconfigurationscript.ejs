@@ -1,0 +1,121 @@
+<script>
+  $(document).ready(function () {
+    LoadTable();
+
+    function LoadTable() {
+      $("#taxconfiguration-table").DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        paging: false,
+        searching: false,
+        info: false,
+        scrollY: 400,
+        scrollCollapse: true,
+        serverMethod: "GET",
+        ajax: {
+          url: "/taxconfiguration/load",
+          dataSrc: (json) => {
+            var finalData = [];
+            var data = json.data;
+
+            console.log(data);
+            $.each(data, (key, item) => {
+              var action = "";
+              var status = item.status;
+
+              action = `<button class="">Delete</button>`;
+
+              finalData.push({
+                taxid: item.taxid,
+                countrycode: item.countrycode,
+                statecode: item.statecode,
+                taxrate: item.taxrate,
+                taxtype: item.taxtype,
+                startdate: item.startdate,
+                enddate: item.enddate,
+                isactive: item.isactive,
+                createdat: item.createdat,
+                updatedat: item.updatedat,
+                action: action,
+              });
+            });
+
+            return finalData;
+          },
+        },
+        columnDefs: [
+          {
+            targets: 1,
+            className: "td-indent",
+          },
+        ],
+        columns: [
+          { data: "taxid" },
+          { data: "countrycode" },
+          { data: "statecode" },
+          { data: "taxrate" },
+          { data: "taxtype" },
+          { data: "startdate" },
+          { data: "enddate" },
+          { data: "isactive" },
+          { data: "createdat" },
+          { data: "updatedat" },
+          { data: "action" },
+        ],
+        initComplete: function () {},
+      });
+    }
+    
+    $(document).on("click", "#add", function () {
+      console.log("click");
+      var countrycode = $("#countrycode").val();
+      var statecode = $("#statecode").val();
+      var taxrate = $("#taxrate").val();
+      var enddate = $("#enddate").val();
+      var taxtype = $("#taxtype").val();
+      var isactive = $("#isactive").val();
+
+      $.ajax({
+        type:'post',
+        url:'/taxconfiguration/save',
+        data:{
+          countrycode: countrycode,
+          statecode: statecode,
+          taxrate: taxrate,
+          enddate: enddate,
+          taxtype: taxtype,
+          isactive: isactive
+        },
+        success: function(result){
+
+        },
+        error: function(error){
+
+        }
+      });
+
+      // $.ajax({
+      //   type: 'post',
+      //   url: '/taxconfiguration/save',
+      //   data: {
+      //     countrycode: countrycode,
+      //     statecode: statecode,
+      //     taxrate: taxrate,
+      //     enddate: enddate,
+      //     taxtype: taxtype,
+      //     isactive: isactive,
+      //   },
+      //   success: function (result) {
+      //     LoadTable();
+      //     console.log(result);
+      //   },
+      //   error: function (error) {
+      //     console.log(error);
+      //   },
+      // });
+    
+    
+    });
+  });
+</script>

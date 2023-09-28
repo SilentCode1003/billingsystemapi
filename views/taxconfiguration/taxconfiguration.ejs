@@ -1,0 +1,81 @@
+<h1 class="taxconfiguration-header">Tax Configuration </h1>
+<div class="taxconfiguration-container" id="taxconfiguration-border">
+   
+
+    <!-- Form to add a new payment record -->
+    
+      <div class="row">
+        <div class="col-md-3">
+          <label for="countrycode" class="form-label">Country Code</label>
+          <input type="text" class="form-control" id="countrycode" name="countrycode" required>
+        </div>
+        <div class="col-md-3">
+          <label for="statecode" class="form-label">State Code</label>
+          <input type="" class="form-control" id="statecode" name="statecode" required>
+        </div>
+   
+        <div class="col-md-3">
+          <label for="taxrate" class="form-label">Tax Rate</label>
+          <input type="number" step="0.01" class="form-control" id="taxrate" name="taxrate" required>
+        </div>
+        <div class="col-md-3">
+           <label for="tax-type" class="form-label">Tax Type</label>
+           <select class="form-control selectpicker" id="taxtype" name="taxtype" required>
+            <option hidden value="Select" style="color: gray;" >Select</option>
+            <option value="Corporate">Corporate</option>
+            <option value="Payroll">Payroll</option>
+            <option value="Capital">Capital</option>
+            <!-- Add more payment methods as needed -->
+        </select>
+        </div>
+        
+      <div class="col-md-3">
+        <label for="end-date" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="enddate" name="enddate" required>
+      </div>
+      
+    
+  
+  <div class="col-md-3">
+        <label class="is-active" for="is-active">Active</label>
+        <select class="form-control selectpicker" id="isactive" name="isactive" required>
+          <option hidden value="Select" style="color: gray;" >Select</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+          
+          <!-- Add more payment methods as needed -->
+      </select>
+    </div>
+   
+    <div>
+    <button id="add" style="width: 80px; margin-top: 10px;" >Add&nbsp;<i class='bx bx-message-square-add'></i></button>
+</div>
+
+</div>
+</div>      
+&nbsp;
+    <!-- Table to display payment records -->
+    <div class="taxconfiguration-container table-responsive">
+      <table id="taxconfiguration-table" class=" table mt-4 ">
+      
+        <thead class="">
+          <th scope="col-md-4">Tax ID</th>
+          <th scope="col-md-4">Country Code</th>
+          <th scope="col-md-4">State Code</th>
+          <th scope="col-md-4">Tax Rate</th>
+          <th scope="col-md-4">Tax Type</th>
+          <th scope="col-md-4">Start Date</th>
+          <th scope="col-md-4">End Date</th>
+          <th scope="col-md-4">Active</th>
+          <th scope="col-md-4">Created At</th>
+          <th scope="col-md-4">Updated At</th>
+          <th>action</th>
+        </thead>
+      
+        <tbody>
+
+        </tbody>
+        <!-- More payment rows can be added here -->
+      
+    </table>
+  </div>

@@ -1,0 +1,96 @@
+<script>
+  $(document).ready(function () {
+    LoadTable();
+
+    function LoadTable() {
+      $("#product-table").DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        paging: false,
+        searching: false,
+        info: false,
+        scrollY: 400,
+        scrollCollapse: true,
+        serverMethod: "GET",
+        ajax: {
+          url: "/product/load",
+          dataSrc: (json) => {
+            var finalData = [];
+            var data = json.data;
+
+            console.log(data);
+            $.each(data, (key, item) => {
+              var action = "";
+              var status = item.status;
+
+              action = `<button class="">Delete</button>`;
+
+              finalData.push({
+                productid: item.productid,
+                productname: item.productname,
+                description: item.description,
+                categoryid: item.categoryid,
+                price: item.price,
+                instock: item.instock,
+                isactive: item.isactive,
+                creationdate: item.creationdate,
+                action: action,
+              });
+            });
+
+            return finalData;
+          },
+        },
+        columnDefs: [
+          {
+            targets: 1,
+            className: "td-indent",
+          },
+        ],
+        columns: [
+          { data: "productid" },
+          { data: "productname" },
+          { data: "description" },
+          { data: "categoryid" },
+          { data: "price" },
+          { data: "instock" },
+          { data: "isactive" },
+          { data: "creationdate" },
+          { data: "action" },
+        ],
+        initComplete: function () {},
+      });
+    }
+
+    $(document).on("click", "#add", function () {
+      console.log("click");
+      var productname = $("#productname").val();
+      var description = $("#description").val();
+      var categoryid = $("#categoryid").val();
+      var price = $("#price").val();
+      var instock = $("#instock").val();
+      var isactive = $("#isactive").val();
+
+      $.ajax({
+        type: "post",
+        url: "/product/save",
+        data: {
+          productname: productname,
+          description: description,
+          categoryid: categoryid,
+          price: price,
+          instock: instock,
+          isactive: isactive,
+        },
+        success: function (result) {
+          LoadTable();
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+    });
+  });
+</script>

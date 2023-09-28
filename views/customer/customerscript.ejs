@@ -1,0 +1,108 @@
+<script>
+    $(document).ready(function () {
+   LoadTable(); 
+  
+      function LoadTable() {
+        $("#customer-table").DataTable({
+          destroy: true,
+          processing: true,
+          serverSide: true,
+          paging: false,
+          searching: false,
+          info: false,
+          scrollY: 400,
+          scrollCollapse: true,
+          serverMethod: "GET",
+          ajax: {
+            url: "/customer/load",
+            dataSrc: (json) => {
+              var finalData = [];
+              var data = json.data;
+  
+              console.log(data);
+              $.each(data, (key, item) => {
+                var action = "";
+                var status = item.status;
+  
+                action = `<button class="" id="delete">Delete</button>`;
+  
+                finalData.push({
+                    customerid: item.customerid,
+                    firstname: item.firstname,
+                    lastname: item.lastname,
+                    email: item.email,
+                    phonenumber: item.phonenumber,
+                    address: item.address,
+                    city: item.city,
+                    state: item.state,
+                    postalcode: item.postalcode,
+                    country: item.country,
+                    action:action
+                });
+              });
+  
+              return finalData;
+            },
+          },
+          columnDefs: [
+            {
+              targets: 1,
+              className: "td-indent",
+            },
+          ],
+          columns: [
+            { data: "customerid" },
+            { data: "firstname" },
+            { data: "lastname" },
+            { data: "email" },
+            { data: "phonenumber" },
+            { data: "address" },
+            { data: "city" },
+            { data: "state" },
+            { data: "postalcode" },
+            { data: "country" },
+            { data: "action" },
+          ],
+          initComplete: function () {},
+        });
+      }
+
+      $(document).on("click", "#add", function () {
+      console.log("click");
+      var firstname = $("#firstname").val();
+      var lastname = $("#lastname").val();
+      var email = $("#email").val();
+      var phonenumber = $("#phonenumber").val();
+      var address = $("#address").val();
+      var city = $("#city").val();
+      var state = $("#state").val();
+      var postalcode = $("#postalcode").val();
+      var country = $("#country").val();
+
+    
+
+      $.ajax({
+        type: "post",
+        url: "/customer/save",
+        data: {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          phonenumber: phonenumber,
+          address: address,
+          state: state,
+          city: city,
+          postalcode: postalcode,
+          country: country,
+        },
+        success: function (result) {
+          LoadTable();
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+    });
+  });
+  </script>

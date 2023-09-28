@@ -1,0 +1,96 @@
+<script>
+  $(document).ready(function () {
+    LoadTable();
+
+    function LoadTable() {
+      $("#invoice-table1").DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        paging: false,
+        searching: false,
+        info: false,
+        scrollY: 400,
+        scrollCollapse: true,
+        serverMethod: "GET",
+        ajax: {
+          url: "/invoice/load",
+          dataSrc: (json) => {
+            var finalData = [];
+            var data = json.data;
+
+            console.log(data);
+            $.each(data, (key, item) => {
+              var action = "";
+              var status = item.status;
+
+              action = `<button class="">Delete</button>`;
+
+              finalData.push({
+                invoiceid: item.invoiceid,
+                customerid: item.customerid,
+                invoicedate: item.invoicedate,
+                duedate: item.duedate,
+                totalamount: item.totalamount,
+                status: item.status,
+                paymentdate: item.paymentdate,
+                action: action,
+              });
+            });
+
+            return finalData;
+          },
+        },
+        columnDefs: [
+          {
+            targets: 1,
+            className: "td-indent",
+          },
+        ],
+        columns: [
+          { data: "invoiceid" },
+          { data: "customerid" },
+          { data: "invoicedate" },
+          { data: "duedate" },
+          { data: "totalamount" },
+          { data: "status" },
+          { data: "paymentdate" },
+          { data: "action" },
+        ],
+        initComplete: function () {},
+      });
+    }
+
+    $(document).on("click", "#add", function () {
+      console.log("click");
+      var customer_id = $("#customer_id").val();
+      var invoice_date = $("#invoice_date").val();
+      var due_date = $("#due_date").val();
+      var total_amount = $("#total_amount").val();
+      var invoice_status = $("#invoice_status").val();
+      var payment_date = $("#payment_date").val();
+
+      console.log(payment_date);
+      
+      $.ajax({
+        type: "post",
+        url: "/invoice/save",
+        data: {
+          customerid: customer_id,
+          invoicedate: invoice_date,
+          duedate: due_date,
+          totalamount: total_amount,
+          status: invoice_status,
+          paymentdate: payment_date,
+        },
+        success: function (result) {
+          LoadTable();
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+    });
+  });
+</script>

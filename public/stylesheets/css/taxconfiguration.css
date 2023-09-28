@@ -1,0 +1,14 @@
+.taxconfiguration-header{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #eb1c23;
+}
+.taxconfiguration-container{
+     
+    border-style: groove;
+    border-width: 2px;
+    border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: auto;
+        margin: auto;
+        padding: 10px;
+}

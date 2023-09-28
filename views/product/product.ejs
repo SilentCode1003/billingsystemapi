@@ -1,0 +1,70 @@
+<h1 class="product-cardheader">Product</h1>
+<div class="product-container">
+    
+    
+        <div class="form-row">
+            
+            <div class="form-group col-md-6">
+                <label for="productname">Product Name</label>
+                <input type="text" class="form-control" id="productname" name="productname" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="categoryid">Category ID</label>
+                <input type="email" class="form-control" id="categoryid" name="categoryid" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="description">Description</label>
+                <textarea  class="form-control" id="description" name="description" required></textarea>
+            </div>
+            
+        
+            <div class="form-group col-md-6">
+                <label for="p">Price</label>
+                <input type="tel" class="form-control" id="price" name="price" required>
+            </div>
+            
+        </div>
+        <div class="form-group col-md-4">
+            <label for="instock">Instock</label>
+            <input type="tel" class="form-control" id="instock" name="instock" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="isactive">IsActive</label>
+            <select class="form-control selectpicker" id="isactive" name="isactive" required>
+                <option hidden value="Select" style="color: gray;" >Select</option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+                
+                <!-- Add more payment methods as needed -->
+            </select>
+        </div>
+    
+    <button type="submit" id="add" >Add &nbsp; <i class='bx bx-message-square-add'></i></button>
+</div>
+&nbsp;
+<div class="product-container">
+    <table id="product-table" class=" table mt-4 ">
+      
+        <thead class="">
+          <th scope="col-md-4">Customer ID</th>
+          <th scope="col-md-4">Product Name</th>
+          <th scope="col-md-4">Description</th>
+          <th scope="col-md-4">Category ID</th>
+          <th scope="col-md-4">Price</th>
+          <th scope="col-md-4">In Stock</th>
+          <th scope="col-md-4">Is Active</th>
+          <th scope="col-md-4">Creation Date</th>
+          
+          <th>action</th>
+        </thead>
+      
+        <tbody>
+
+        </tbody>
+        <!-- More payment rows can be added here -->
+      
+    </table>
+
+</div>
